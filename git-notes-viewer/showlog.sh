@@ -32,7 +32,7 @@ count=1
 for line in $out
 do
     if test -z "$LIMIT" || test $count -le $LIMIT; then
-        tag=`git show $line | grep Tag:`
+        tag=`git show $line | grep Version:`
         desc=`git show $line | grep Description:`
         if test -n "$tag" && test -n "$desc"; then
             echo ---------------------------------------------------------------------------------------------------
