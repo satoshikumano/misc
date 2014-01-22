@@ -3,6 +3,8 @@ USAGE="Usage: `basename $0` [-h] [-l number]"
 if [ $# -eq 0 ]; then
     echo $USAGE
 fi
+
+out=`git notes | sed -e 's/ .*$//g'`
 # Parse command line options.
 while getopts hl: OPT; do
     case "$OPT" in
@@ -13,6 +15,7 @@ while getopts hl: OPT; do
         l)
             LIMIT=$OPTARG
             echo number limitation: $LIMIT
+            out=`echo $out | head -n $LIMIT`
             ;;
         \?)
             # getopts issues an error message
@@ -25,24 +28,16 @@ done
 # Remove the switches we parsed above.
 shift `expr $OPTIND - 1`
 
-# Add actual process
-
-out=`git notes | sed -e 's/ .*$//g'`
-count=1
+# output in console.
 for line in $out
 do
-    if test -z "$LIMIT" || test $count -le $LIMIT; then
-        tag=`git show $line | grep Version:`
-        desc=`git show $line | grep Description:`
-        if test -n "$tag" && test -n "$desc"; then
-            echo ---------------------------------------------------------------------------------------------------
-            echo $tag
-            echo $desc
-            echo ---------------------------------------------------------------------------------------------------
-        fi
-        count=$((count+1))
-    else
-        break
+    tag=`git show $line | grep Version:`
+    desc=`git show $line | grep Description:`
+    if test -n "$tag" && test -n "$desc"; then
+        echo ---------------------------------------------------------------------------------------------------
+        echo $tag
+        echo $desc
+        echo ---------------------------------------------------------------------------------------------------
     fi
 done
 
