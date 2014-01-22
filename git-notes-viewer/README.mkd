@@ -1,0 +1,48 @@
+# git notesを利用した変更管理
+
+## なにをやりたいのか
+ - 公開IFやプロダクトの振る舞いの変更を簡単に確認できるようにしたい(通常のgit commit logでは粒度が細かすぎるため)
+
+## フロー
+ - 公開IFやプロダクトの振る舞いの変更が発生したら git notes コマンドを利用して、該当する変更が発生したコミットにnote をひもづける。(Developer)
+ - 変更を確認したい人(ドキュメントチーム・QAチームなど)はgit notesをビューするためのスクリプトを実行して必要な情報を得る。
+
+## git notes の追加
+```sh
+git notes add -c {commit-changes-product}
+```
+
+## git note の中身
+こんな感じ。
+```
+tree 1bca89550ffd1308e7615843c8df052358235385
+parent 79a5e29ff5a46f006701568d99f51ac23be29474
+author satoshi <satoshi.kumano@kii.com> 1390301925 +0900
+committer satoshi <satoshi.kumano@kii.com> 1390301925 +0900
+
+# 以下をDeveloperが記載する。上記はgitが自動生成。フォーマットは合わせてね。
+Version: v2.1.15
+Description: MyClass#hoge() stop throwing exception on condition of XXX.
+```
+
+## git noteの閲覧
+本スクリプトを利用する。
+(git notes コマンドでも良いがidの一覧なので見づらい。)
+```sh
+cd  '{your local repository for the script}'
+git clone git@github.com:satoshikumano/misc.git
+cd misc/git-notes-viewer
+PATH=$PATH:`pwd`
+
+cd '{your local repository of product}'
+sh showlog.sh -l 100
+---------------------------------------------------------------------------------------------------
+Version: v2.1.15
+Description: MyClass#hoge() stop throwing exception on condition of XXX.
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+Version: v2.1.15
+Description: Add new interface MyClass#hoge(String)
+---------------------------------------------------------------------------------------------------
+....
+```
