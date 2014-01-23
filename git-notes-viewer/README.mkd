@@ -35,6 +35,7 @@ cd misc/git-notes-viewer
 PATH=$PATH:`pwd`
 
 cd '{your local repository of product}'
+git fetch origin refs/notes/*:refs/notes/*
 sh showlog.sh -l 100
 ---------------------------------------------------------------------------------------------------
 Version: v2.1.15
