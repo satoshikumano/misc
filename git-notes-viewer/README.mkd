@@ -22,8 +22,11 @@ committer satoshi <satoshi.kumano@kii.com> 1390301925 +0900
 
 # 以下をDeveloperが記載する。上記はgitが自動生成。フォーマットは合わせてね。
 Version: v2.1.15
+Issue: https://tracker.hoge.com/Issue-1234
 Description: MyClass#hoge() stop throwing exception on condition of XXX.
 ```
+Version, Descriptionは必須。IssueはOptional
+いまのところ各フィールドとも改行は無し。
 
 ## git noteの閲覧
 本スクリプトを利用する。
@@ -38,6 +41,7 @@ cd '{your local repository of product}'
 sh showlog.sh -l 100
 ---------------------------------------------------------------------------------------------------
 Version: v2.1.15
+Issue: https://tracker.hoge.com/Issue-1234
 Description: MyClass#hoge() stop throwing exception on condition of XXX.
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
