@@ -32,11 +32,16 @@ shift `expr $OPTIND - 1`
 for line in $out
 do
     tag=`git show $line | grep Version:`
+    issue=`git show $line | grep Issue:`
     desc=`git show $line | grep Description:`
     if test -n "$tag" && test -n "$desc"; then
         echo ---------------------------------------------------------------------------------------------------
         echo $tag
+        if test -n "$issue"; then
+            echo $issue
+        fi
         echo $desc
+        echo "Note object: $line"
         echo ---------------------------------------------------------------------------------------------------
     fi
 done
