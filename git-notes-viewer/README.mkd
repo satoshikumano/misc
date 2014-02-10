@@ -39,15 +39,19 @@ PATH=$PATH:`pwd`
 
 cd '{your local repository of product}'
 git fetch origin refs/notes/*:refs/notes/*
-sh showlog.sh -l 100
+sh showlog.sh -v v2.1.15
 ---------------------------------------------------------------------------------------------------
 Version: v2.1.15
 Issue: https://tracker.hoge.com/Issue-1234
 Description: MyClass#hoge() stop throwing exception on condition of XXX.
+Note object: 3fa43fff4da9f401e8319e934fc3ce3619bfa939
+Commit: 0f5e5bba209e948b0ae6e635f7c3005c399d9fe8
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 Version: v2.1.15
 Description: Add new interface MyClass#hoge(String)
+Note object: c1fc7045c0b154b20d1baf7962decb3772a6c1fc
+Commit: d45cf4561c007647232b8b30104e6b02ffc6b400
 ---------------------------------------------------------------------------------------------------
 ....
 ```
