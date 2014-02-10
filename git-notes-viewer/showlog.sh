@@ -1,4 +1,4 @@
-USAGE="Usage: `basename $0` [-h] [-l number]"
+USAGE="Usage: `basename $0` [-h] [-l number] [-v version]"
 
 if [ $# -eq 0 ]; then
     echo $USAGE
@@ -6,7 +6,7 @@ fi
 
 out=`git notes | sed -e 's/ /,/g'`
 # Parse command line options.
-while getopts hl: OPT; do
+while getopts hlv: OPT; do
     case "$OPT" in
         h)
             echo $USAGE
@@ -16,6 +16,9 @@ while getopts hl: OPT; do
             LIMIT=$OPTARG
             echo number limitation: $LIMIT
             out=`echo $out | head -n $LIMIT`
+            ;;
+        v)
+            version=$OPTARG
             ;;
         \?)
             # getopts issues an error message
@@ -33,7 +36,7 @@ for line in $out
 do
     IFS=','
     set -- $line
-    tag=`git show $1 | grep Version:`
+    tag=`git show $1 | grep "Version: $version"`
     issue=`git show $1 | grep Issue:`
     desc=`git show $1 | grep Description:`
     if test -n "$tag" && test -n "$desc"; then
@@ -43,7 +46,7 @@ do
         fi
         echo $desc
         echo "Note object: $1"
-        echo "Commit : $2"
+        echo "Commit: $2"
         echo --------------------------------------------------------------------------------
     fi
 done
