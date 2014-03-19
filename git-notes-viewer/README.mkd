@@ -9,7 +9,7 @@
 
 ## git notes の追加
 ```sh
-git notes add -c {commit-changes-product}
+git notes add {commit-changes-product}
 ```
 
 ## git note の中身
